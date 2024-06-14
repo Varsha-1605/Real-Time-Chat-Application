@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="message-box">
+  <!-- Display the room code -->
+  <h2>Chat Room: {{ code }}</h2>
+  <!-- Container to display chat messages -->
+  <div class="messages" id="messages"></div>
+  <div class="inputs">
+    <!-- Input field for typing a message -->
+    <input type="text" rows="3" placeholder="Message" name="message" id="message" />
+    <!-- Button to send the message -->
+    <button type="button" name="send" id="send-btn">Send</button>
+  </div>
+</div>
+
+<table width="100%">
+  <tr>
+    <td width="50%">
+      <button style="font-size:20px" onclick="openUpdateMsg()">Update Msg</button>
+      <div id="update_div" hidden>
+        <form id="update_form">
+          <table width="100%">
+            <tr>
+              <td width="20%">
+                <input type="text" name="msg_id" placeholder="Msg Id" />
+              </td>
+              <td width="60%">
+                <input type="text" name="text" placeholder="New Msg..." />
+              </td>
+              <td>
+                <button class="btn2" type="button" onclick="updateMessage()">Update</button>
+              </td>
+              <td>
+                <button class="btn2" type="button" onclick="closeUpdateMsg()">Close</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </td>
+    <td width="50%">
+      <button style="font-size:20px" onclick="openDeleteMsg()">Delete Msg</button>
+      <div id="delete_div" hidden>
+        <form id="delete_form">
+          <table width="100%">
+            <tr>
+              <td width="30%">
+                <input type="text" name="msg_id" placeholder="Msg Id" />
+              </td>
+              <td>
+                <button class="btn2" type="button" onclick="deleteMessage()">Delete</button>
+              </td>
+              <td>
+                <button class="btn2" type="button" onclick="closeDeleteMsg()">Close</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var socket = io.connect();
+    var messageId = 1; // Initialize the messageId variable
+
+    // Function to append a new message to the chat
+    function appendMessage(name, message) {
+      var messagesDiv = document.getElementById('messages');
+      var messageElement = document.createElement('p');
+      messageElement.setAttribute('id', 'message_' + messageId);
+      messageElement.innerHTML = '<strong>' + name + '</strong> (ID: ' + messageId + '): ' + message;
+      messagesDiv.appendChild(messageElement);
+      messageId++; // Increment the messageId variable
+    }
+
+    // Handle incoming messages
+    socket.on('message', function(data) {
+      appendMessage(data.name, data.message);
+    });
+
+    // Send message to the server
+    document.getElementById('send-btn').addEventListener('click', function() {
+      var messageInput = document.getElementById('message');
+      var message = messageInput.value;
+      if (message.length > 0) {
+        socket.emit('message', { name: 'User', message: message });
+        messageInput.value = '';
+      }
+    });
+
+    // Open update message form
+    window.openUpdateMsg = function() {
+      document.getElementById('update_div').hidden = false;
+    }
+
+    // Close update message form
+    window.closeUpdateMsg = function() {
+      document.getElementById('update_div').hidden = true;
+    }
+
+    // Open delete message form
+    window.openDeleteMsg = function() {
+      document.getElementById('delete_div').hidden = false;
+    }
+
+    // Close delete message form
+    window.closeDeleteMsg = function() {
+      document.getElementById('delete_div').hidden = true;
+    }
+
+    // Function to update a message
+    window.updateMessage = function() {
+  var updateForm = document.getElementById('update_form');
+  var formData = new FormData(updateForm);
+  var msgId = formData.get('msg_id');
+  var newText = formData.get('text');
+  var messageElement = document.getElementById('message_' + msgId);
+  if (messageElement) {
+    // Replace the entire content of the message element with the new text
+    messageElement.innerHTML =  '(ID: ' + msgId+ '):' + newText;
+    closeUpdateMsg(); // Assuming closeUpdateMsg is defined elsewhere and closes the form or dialog
+  } else {
+    alert('Invalid message ID');
+  }
+}
+
+
+
+
+    // Function to delete a message
+    window.deleteMessage = function() {
+      var deleteForm = document.getElementById('delete_form');
+      var formData = new FormData(deleteForm);
+      var msgId = formData.get('msg_id');
+      fetch('/delete_msg', {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => response.text())
+      .then(result => {
+        var messageElement = document.getElementById('message_' + msgId);
+        if (messageElement) {
+          messageElement.remove();
+        } else {
+          alert('Invalid message ID');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }
+  });
+
+  // Render existing messages when the page loads
+  function appendMessage(name, message) {
+    var messagesDiv = document.getElementById('messages');
+    var messageElement = document.createElement('p');
+    messageElement.setAttribute('id', 'message_' + messageId);
+    messageElement.innerHTML = '<strong>' + name + '</strong> (ID: ' + messageId + '): ' + message;
+    messagesDiv.appendChild(messageElement);
+    messageId++; // Increment the messageId variable
+  }
+</script>
+
+{% for msg in messages %}
+<script type="text/javascript">
+  appendMessage("{{ msg.name }}", "{{ msg.message }}");
+</script>
+{% endfor %}
+
+{% endblock %}

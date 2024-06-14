@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Form to handle joining or creating a chat room -->
+<form method="post" class="buttons">
+  <h3>Enter The Chat Room</h3>
+
+  <!-- Input for the user's name -->
+  <div class="id-name">
+    <label class="name-label">Name:</label>
+    <input type="text" placeholder="Pick a name!" name="name" value="{{name}}" />
+  </div>
+
+  <!-- Input for the room code to join an existing room -->
+  <div class="join">
+    <input type="text" placeholder="Room Code" name="code" value="{{code}}" />
+    <button type="submit" name="join">Join a Room</button>
+  </div>
+
+  <!-- Button to create a new room -->
+  <button type="submit" name="create" class="create-btn">Create a Room</button>
+
+  <!-- Display any error messages -->
+  {% if error %}
+  <ul>
+    <li>{{error}}</li>
+  </ul>
+  {% endif %}
+
+</form>
+{% endblock %}
