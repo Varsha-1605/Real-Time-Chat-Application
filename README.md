@@ -7,11 +7,17 @@ Real Time Chat Application
 ## Features
 
 🔥 **Real-time Messaging:** Seamless communication with instant message delivery.
+
 🌐 **Multiple Chat Rooms:** Join different channels for various topics or groups.
+
 🔐 **User Authentication:** Secure signup and login with credentials.
+
 👥 **Online Presence:** See who's available for chat in real-time.
+
 💬 **Private Messaging:** Engage in one-on-one conversations with other users.
+
 📎 **File Sharing:** Share files (images, documents, etc.) within chats.
+
 ⚡ **Instant Updates:** New messages and changes sync automatically.
 
 ## Screenshots
@@ -20,7 +26,7 @@ Real Time Chat Application
 <img src="https://github.com/Varsha-1605/Real-Time-Chat-Application/blob/main/t1.png">
 
 ### Chat Room
-<img src="https://github.com/Varsha-1605/Real-Time-Chat-Application/blob/main/t1.png">
+<img src="https://github.com/Varsha-1605/Real-Time-Chat-Application/blob/main/t2.png">
 
 ## Getting Started
 
