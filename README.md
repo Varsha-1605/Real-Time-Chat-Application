@@ -16,8 +16,6 @@
 
 💬 **Private Messaging:** Engage in one-on-one conversations with other users.
 
-📎 **File Sharing:** Share files (images, documents, etc.) within chats.
-
 ⚡ **Instant Updates:** New messages and changes sync automatically.
 
 ## Screenshots
