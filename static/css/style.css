@@ -304,3 +304,55 @@ h3 {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--button-hover);
 }
+
+
+
+/* ... (previous CSS remains the same) ... */
+
+.text {
+  /* ... (previous styles remain the same) ... */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-content {
+  flex: 1;
+}
+
+.text-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn, .delete-btn {
+  background-color: transparent;
+  color: var(--muted-text-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.edit-btn:hover, .delete-btn:hover {
+  background-color: var(--message-hover);
+  color: var(--text-color);
+}
+
+.edit-btn:focus, .delete-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.delete-btn {
+  color: #e74c3c;
+}
+
+.delete-btn:hover {
+  background-color: #fde8e7;
+  color: #c0392b;
+}
+
+/* ... (rest of the CSS remains the same) ... */
