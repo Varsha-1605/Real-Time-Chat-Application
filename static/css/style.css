@@ -383,3 +383,20 @@ h2 {
 .data-input button:active {
   background-color: var(--send-button-background-active);
 }
+
+
+/* Add this to your existing CSS */
+
+.text button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.text button:hover {
+  background-color: #0056b3;
+}
