@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Room</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
 <body>
@@ -14,8 +14,8 @@
             <h2>Chat Room: {{ code }}</h2>
             <div class="messages" id="messages"></div>
             <div class="inputs">
-                <input type="text" rows="3" placeholder="Message" name="message" id="message"/>
-                <button type="button" name="send" id="send-btn" onclick="sendMessage()">Send</button>
+                <input type="text" placeholder="Type your message..." name="message" id="message"/>
+                <button type="button" class="send-btn" id="send-btn" onclick="sendMessage()">Send</button>
             </div>
         </div>
     </div>
@@ -28,16 +28,18 @@
         const createMessage = (name, msg, message_id) => {
             const content = `
                 <div class="text" id="message_${message_id}">
-                    <span>
+                    <div class="text-content">
                         <strong>${name}</strong>: ${msg}
-                    </span>
-                    <span class="muted">
-                        <button onclick="updateMessage(${message_id})">Edit</button>
-                        <button onclick="deleteMessage(${message_id})">Delete</button>
-                    </span>
+                    </div>
+                    <div class="text-actions">
+                        <button class="edit-btn" onclick="updateMessage(${message_id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteMessage(${message_id})">Delete</button>
+                    </div>
+                    <div class="muted">Just now</div>
                 </div>
             `;
             messages.innerHTML += content;
+            messages.scrollTop = messages.scrollHeight;
         };
 
         socketio.on("message", (data) => {
@@ -47,7 +49,7 @@
         socketio.on("message_updated", (data) => {
             const messageElement = document.getElementById(`message_${data.msg_id}`);
             if (messageElement) {
-                messageElement.querySelector('span:first-child').innerHTML = `<strong>${data.name}</strong>: ${data.new_text}`;
+                messageElement.querySelector('.text-content').innerHTML = `<strong>${data.name}</strong>: ${data.new_text}`;
             }
         });
 
@@ -66,10 +68,33 @@
         };
 
         const updateMessage = (messageId) => {
-            const newText = prompt("Enter new message:");
-            if (newText !== null) {
-                socketio.emit("update_message", { msg_id: messageId, text: newText });
-            }
+            const messageElement = document.getElementById(`message_${messageId}`);
+            const textContent = messageElement.querySelector('.text-content');
+            const currentText = textContent.textContent.split(': ')[1];
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = currentText;
+            input.classList.add('edit-input');
+            
+            textContent.innerHTML = '';
+            textContent.appendChild(input);
+            input.focus();
+
+            input.addEventListener('blur', () => {
+                const newText = input.value.trim();
+                if (newText && newText !== currentText) {
+                    socketio.emit("update_message", { msg_id: messageId, text: newText });
+                } else {
+                    textContent.innerHTML = `<strong>${name}</strong>: ${currentText}`;
+                }
+            });
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    input.blur();
+                }
+            });
         };
 
         const deleteMessage = (messageId) => {
@@ -82,6 +107,14 @@
         const initialMessages = JSON.parse('{{ messages | tojson | safe }}');
         initialMessages.forEach(msg => {
             createMessage(msg.name, msg.message, msg.id);
+        });
+
+        // Add event listener for "Enter" key
+        document.getElementById("message").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendMessage();
+            }
         });
     </script>
 </body>

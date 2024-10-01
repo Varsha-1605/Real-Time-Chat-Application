@@ -87,10 +87,12 @@ def message(data):
         "name": session.get("name"),
         "message": data["message"]
     }
-    send(content, to=room)
     new_message = Message(room=room, name=content["name"], message=content["message"])
     db.session.add(new_message)
     db.session.commit()
+    
+    content["id"] = new_message.id
+    send(content, to=room)
 
 @socketio.on("connect")
 def connect(auth):
@@ -138,6 +140,7 @@ def update_message(data):
         db.session.commit()
         emit("message_updated", {
             "msg_id": msg_id,
+            "name": message.name,
             "new_text": new_text
         }, room=room)
 
