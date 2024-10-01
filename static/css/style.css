@@ -1,235 +1,306 @@
 :root {
-  --background-gradient-start: #e0f7fa;
-  --background-gradient-end: #0288d1;
-  --button-background: #0277bd;
-  --button-background-hover: #01579b;
-  --button-background-active: #013f7f;
-  --send-button-background: #0277bd;
-  --send-button-background-hover: #01579b;
-  --send-button-background-active: #013f7f;
-  --message-box-background: #f5f5f5;
+  --primary-color: #4a90e2;
+  --secondary-color: #50e3c2;
+  --background-color: #f7f9fc;
+  --text-color: #333333;
+  --muted-text-color: #777777;
+  --input-background: #ffffff;
   --message-background: #ffffff;
-  --input-border-color: #ccc;
-  --input-border-focus-color: #0277bd;
-  --text-color: #333;
-  --muted-text-color: #888;
-  --scrollbar-thumb-color: #888;
-  --scrollbar-thumb-hover-color: #555;
-  --fade-in-duration: 0.8s;
-  --slide-in-duration: 0.4s;
-  --primary-font: 'Poppins', sans-serif;
-  --font-weight-bold: 600;
-  --font-weight-normal: 400;
+  --message-hover: #f0f4f8;
+  --button-hover: #3a7bd5;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
 }
 
-/* Flex container for centering content */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
 .content {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+  align-items: center;
+  min-height: 100vh;
   padding: 20px;
   box-sizing: border-box;
-  font-family: var(--primary-font);
 }
 
-/* Form Buttons */
-form.buttons {
-  height: 80%; 
-  max-height: 600px;
-  width: 80%;
-  max-width: 600px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
-  animation: fadeIn var(--fade-in-duration) ease-in-out;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Container for buttons */
-.buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Improved heading styles */
-h3 {
-  font-size: 32px;
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color);
-  margin-top: -10px;
-  text-align: center;
-}
-
-/* Inputs and Form Styling */
-.id-name {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.name-label {
-  font-size: 18px;
-  font-weight: var(--font-weight-normal);
-  color: var(--text-color);
-}
-
-.id-name input[type="text"] {
-  flex-grow: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--input-border-color);
-  transition: all 0.3s ease;
-}
-
-.id-name input[type="text"]:focus {
-  border-color: var(--input-border-focus-color);
-}
-
-/* Button Enhancements */
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s ease-in-out;
-  font-family: var(--primary-font);
-}
-
-.create-btn {
-  background-color: var(--button-background);
-}
-
-.send-btn {
-  background-color: var(--send-button-background);
-}
-
-button:hover {
-  transform: translateY(-3px);
-}
-
-.create-btn:hover, .send-btn:hover {
-  background-color: var(--button-background-hover);
-}
-
-.create-btn:active, .send-btn:active {
-  background-color: var(--button-background-active);
-  transform: translateY(0);
-}
-
-button:focus {
-  outline: 2px solid var(--input-border-focus-color);
-}
-
-/* Message Box */
 .message-box {
-  border: 2px solid var(--input-border-color);
-  border-radius: 15px;
-  background-color: var(--message-box-background);
+  width: 90%;
+  max-width: 1200px;
   height: 80vh;
+  background-color: var(--message-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--shadow-color);
   display: flex;
   flex-direction: column;
-  width: 80vw;
-  max-width: 1200px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  animation: slideInUp var(--slide-in-duration) ease-in-out;
+  overflow: hidden;
+  transition: var(--transition);
 }
 
 .messages {
-  overflow-y: scroll;
   flex: 1;
+  overflow-y: auto;
   padding: 20px;
+}
+
+.text {
   background-color: var(--message-background);
-  scroll-behavior: smooth;
+  border-radius: var(--border-radius);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: var(--transition);
+}
+
+.text:hover {
+  background-color: var(--message-hover);
+  transform: translateY(-2px);
+}
+
+.muted {
+  color: var(--muted-text-color);
+  font-size: 0.85em;
+  margin-top: 4px;
 }
 
 .inputs {
-  padding: 10px;
   display: flex;
-  background-color: #ffffff;
-  border-top: 1px solid var(--input-border-color);
-  align-items: center;
+  padding: 16px;
+  background-color: var(--input-background);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #message {
   flex: 1;
-  padding: 12px;
-  border: 1px solid var(--input-border-color);
-  border-radius: 8px;
-  margin-right: 10px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--border-radius);
   font-size: 16px;
+  background-color: var(--background-color);
+  transition: var(--transition);
 }
 
 #message:focus {
-  border-color: var(--input-border-focus-color);
   outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.send-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 24px;
+  margin-left: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-@keyframes slideInUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.send-btn:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: var(--message-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: var(--primary-color);
+}
+
+.id-name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.name-label {
+  font-size: 18px;
+  margin-right: 12px;
+  color: var(--text-color);
+}
+
+.id-name input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: var(--background-color);
+  transition: var(--transition);
+}
+
+.id-name input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.create-btn {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.create-btn:hover {
+  background-color: #3cd7b3;
+  transform: translateY(-2px);
+}
+
+.join {
+  display: flex;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.join input[type="text"] {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  font-size: 16px;
+  background-color: var(--background-color);
+  transition: var(--transition);
+}
+
+.join input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.join button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.join button:hover {
+  background-color: var(--button-hover);
+}
+
+.text button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 6px 12px;
+  margin-left: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.text button:hover {
+  background-color: #3cd7b3;
 }
 
 @media (max-width: 768px) {
   .message-box {
     width: 100%;
-    height: 70vh;
+    height: 90vh;
   }
 
   .buttons {
     width: 100%;
-    padding: 10px;
+    padding: 20px;
+  }
+
+  .id-name {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .name-label {
+    margin-bottom: 8px;
+  }
+
+  .join {
+    flex-direction: column;
+  }
+
+  .join input[type="text"],
+  .join button {
+    width: 100%;
+    border-radius: var(--border-radius);
+    margin-bottom: 8px;
   }
 }
 
-/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-gradient-start: #1a237e;
-    --background-gradient-end: #0d47a1;
-    --button-background: #0d47a1;
-    --button-background-hover: #0b3c91;
-    --button-background-active: #092c78;
-    --message-box-background: #2c3e50;
-    --message-background: #34495e;
-    --input-border-color: #555;
-    --input-border-focus-color: #1abc9c;
-    --text-color: #ecf0f1;
-    --muted-text-color: #bdc3c7;
-    --scrollbar-thumb-color: #7f8c8d;
-    --scrollbar-thumb-hover-color: #95a5a6;
+    --background-color: #1f2937;
+    --text-color: #e5e7eb;
+    --muted-text-color: #9ca3af;
+    --input-background: #374151;
+    --message-background: #2d3748;
+    --message-hover: #4a5568;
+    --shadow-color: rgba(0, 0, 0, 0.3);
   }
 
-  .buttons, .inputs {
-    background-color: #34495e;
+  #message,
+  .id-name input[type="text"],
+  .join input[type="text"] {
+    background-color: var(--input-background);
+    color: var(--text-color);
   }
 
-  .message-box {
-    background-color: #2c3e50;
+  .send-btn,
+  .create-btn,
+  .join button,
+  .text button {
+    background-color: var(--primary-color);
   }
+
+  .send-btn:hover,
+  .create-btn:hover,
+  .join button:hover,
+  .text button:hover {
+    background-color: var(--button-hover);
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--button-hover);
 }
