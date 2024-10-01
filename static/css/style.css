@@ -15,8 +15,11 @@
   --muted-text-color: #888;
   --scrollbar-thumb-color: #888;
   --scrollbar-thumb-hover-color: #555;
-  --fade-in-duration: 1s;
-  --slide-in-duration: 0.5s;
+  --fade-in-duration: 0.8s;
+  --slide-in-duration: 0.4s;
+  --primary-font: 'Poppins', sans-serif;
+  --font-weight-bold: 600;
+  --font-weight-normal: 400;
 }
 
 /* Flex container for centering content */
@@ -25,44 +28,27 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
+  background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
   padding: 20px;
   box-sizing: border-box;
+  font-family: var(--primary-font);
 }
 
-
-
+/* Form Buttons */
 form.buttons {
-  height: 80%; /* Adjust the width as per your requirement */
+  height: 80%; 
   max-height: 600px;
-  width: 80%; /* Adjust the width as per your requirement */
-  max-width: 600px; /* Maximum width of the form */
-  margin: auto; /* Centers the form in the middle of the page */
-  padding: 30px; /* Increased padding for larger overall form size */
-  box-sizing: border-box; /* Ensures padding is included in the total width and height */
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  animation: fadeIn var(--fade-in-duration) ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/*newly added*/
-
-/* Container for the name input with label on the left */
-.id-name {
-  display: flex; /* Aligns items in a row */
-  align-items: center; /* Centers items vertically */
-  gap: 10px; /* Spacing between label and input */
-}
-
-/* Increased font size for the label */
-.name-label {
-  font-size: 20px; /* Larger font size for the label */
-  margin-right: 10px; /* Optional: Adjust the spacing to the right of the label */
-}
-
-/* Style adjustments for the input field */
-.id-name input[type="text"] {
-  flex-grow: 1; /* Allows the input to grow and fill the space */
-  padding: 8px; /* Padding inside the input for a larger appearance */
-}
-/*newly added till this */
 /* Container for buttons */
 .buttons {
   display: flex;
@@ -74,67 +60,52 @@ form.buttons {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  animation: fadeIn var(--fade-in-duration) ease-in-out;
 }
 
-
-/* Increased size for the h3 header */
+/* Improved heading styles */
 h3 {
-  font-size: 32px; /* Keeps the increased font size */
-  margin-top: -10px; /* Negative value to move the header up */
-  /* margin-bottom: 20px; Adjust the spacing below the header */
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  color: var(--text-color);
+  margin-top: -10px;
+  text-align: center;
 }
 
-/*newly added till this */
-
-/*newly added*/
-.join {
-  display: flex; /* Aligns items in a row */
-  gap: 10px; /* Spacing between the input box and the button */
-}
-
-/* Consistent sizing for input and button */
-.join input[type="text"],
-.join button {
-  height: 50px; /* Example height, adjust as needed */
-  padding: 0 15px; /* Padding inside the input/button */
-  font-size: 16px; /* Font size for text inside the input/button */
-  border: 2px solid #ccc; /* Border for input/button */
-  border-radius: 5px; /* Rounded corners for input/button */
-}
-
-/* Additional styles for the button for better UI */
-.join button {
-  background-color: #007bff; /* Button color, adjust as needed */
-  color: white; /* Text color for the button */
-  cursor: pointer; /* Changes cursor to pointer on hover */
-  transition: background-color 0.3s; /* Smooth transition for background color */
-}
-
-.join button:hover {
-  background-color: #0056b3; /* Darker shade on hover for the button */
-}
-
-/*newly added till this */
-
-
-/* Join button container */
-.join {
+/* Inputs and Form Styling */
+.id-name {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Button styles */
+.name-label {
+  font-size: 18px;
+  font-weight: var(--font-weight-normal);
+  color: var(--text-color);
+}
+
+.id-name input[type="text"] {
+  flex-grow: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border-color);
+  transition: all 0.3s ease;
+}
+
+.id-name input[type="text"]:focus {
+  border-color: var(--input-border-focus-color);
+}
+
+/* Button Enhancements */
 button {
-  width: 100%;
   padding: 12px 20px;
   font-size: 16px;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  font-family: var(--primary-font);
 }
 
 .create-btn {
@@ -143,39 +114,26 @@ button {
 
 .send-btn {
   background-color: var(--send-button-background);
-  padding: 12px; /* Consistent padding */
-  flex-shrink: 0; /* Prevent shrinking */
 }
 
 button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-.create-btn:hover {
+.create-btn:hover, .send-btn:hover {
   background-color: var(--button-background-hover);
 }
 
-.send-btn:hover {
-  background-color: var(--send-button-background-hover);
-}
-
-button:active {
+.create-btn:active, .send-btn:active {
+  background-color: var(--button-background-active);
   transform: translateY(0);
 }
 
-.create-btn:active {
-  background-color: var(--button-background-active);
-}
-
-.send-btn:active {
-  background-color: var(--send-button-background-active);
-}
-
 button:focus {
-  outline: 2px solid var(--button-background-hover);
+  outline: 2px solid var(--input-border-focus-color);
 }
 
-/* Message box styling */
+/* Message Box */
 .message-box {
   border: 2px solid var(--input-border-color);
   border-radius: 15px;
@@ -185,23 +143,18 @@ button:focus {
   flex-direction: column;
   width: 80vw;
   max-width: 1200px;
-  align-items: stretch;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   animation: slideInUp var(--slide-in-duration) ease-in-out;
 }
 
-/* Styling for message container */
 .messages {
   overflow-y: scroll;
   flex: 1;
-  width: 100%;
   padding: 20px;
   background-color: var(--message-background);
   scroll-behavior: smooth;
 }
 
-/* Styling for input container */
 .inputs {
   padding: 10px;
   display: flex;
@@ -210,14 +163,6 @@ button:focus {
   align-items: center;
 }
 
-/* Center-aligned heading */
-h2 {
-  text-align: center;
-  color: var(--text-color);
-  margin-bottom: 20px;
-}
-
-/* Styling for message input */
 #message {
   flex: 1;
   padding: 12px;
@@ -225,7 +170,6 @@ h2 {
   border-radius: 8px;
   margin-right: 10px;
   font-size: 16px;
-  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #message:focus {
@@ -233,31 +177,6 @@ h2 {
   outline: none;
 }
 
-/* Placeholder styling */
-#message::placeholder {
-  color: #aaa;
-}
-
-/* Styling for message text */
-.text {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.text:hover {
-  background-color: #f1f1f1;
-}
-
-/* Muted text styling */
-.muted {
-  font-size: 14px;
-  color: var(--muted-text-color);
-}
-
-/* Keyframes for animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -276,21 +195,6 @@ h2 {
   }
 }
 
-/* Scrollbar styling */
-.messages::-webkit-scrollbar {
-  width: 10px;
-}
-
-.messages::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb-color);
-  border-radius: 10px;
-}
-
-.messages::-webkit-scrollbar-thumb:hover {
-  background-color: var(--scrollbar-thumb-hover-color);
-}
-
-/* Responsive design */
 @media (max-width: 768px) {
   .message-box {
     width: 100%;
@@ -303,7 +207,7 @@ h2 {
   }
 }
 
-/* Dark mode styling */
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
     --background-gradient-start: #1a237e;
@@ -311,9 +215,6 @@ h2 {
     --button-background: #0d47a1;
     --button-background-hover: #0b3c91;
     --button-background-active: #092c78;
-    --send-button-background: #0d47a1;
-    --send-button-background-hover: #0b3c91;
-    --send-button-background-active: #092c78;
     --message-box-background: #2c3e50;
     --message-background: #34495e;
     --input-border-color: #555;
@@ -330,73 +231,5 @@ h2 {
 
   .message-box {
     background-color: #2c3e50;
-    border-color: #555;
   }
-
-  .text {
-    border-bottom-color: #555;
-  }
-
-  .send-btn, .create-btn {
-    background-color: var(--button-background);
-  }
-
-  .send-btn:hover, .create-btn:hover {
-    background-color: var(--button-background-hover);
-  }
-}
-
-
-.data-input {
-  padding: 10px;
-  display: flex;
-  background-color: #ffffff;
-  border-top: 1px solid var(--input-border-color);
-  align-items: center;
-}
-
-.data-input input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid var(--input-border-color);
-  border-radius: 8px;
-  margin-right: 10px;
-  font-size: 16px;
-  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.data-input input:focus {
-  border-color: var(--input-border-focus-color);
-  outline: none;
-}
-
-.data-input button {
-  background-color: var(--send-button-background);
-  padding: 12px;
-  flex-shrink: 0;
-}
-
-.data-input button:hover {
-  background-color: var(--send-button-background-hover);
-}
-
-.data-input button:active {
-  background-color: var(--send-button-background-active);
-}
-
-
-/* Add this to your existing CSS */
-
-.text button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin-left: 5px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.text button:hover {
-  background-color: #0056b3;
 }
